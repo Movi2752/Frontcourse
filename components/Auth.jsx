@@ -96,7 +96,12 @@ function AuthPage({ onLogin, initialMode = 'login' }) {
         </form>
 
         {mode === 'login' && (
-          <p className="auth-hint">Демо-аккаунт: <code>demo@example.com</code> / <code>demo123</code></p>
+          <div className="auth-hint" style={{ cursor: 'pointer' }} onClick={() => {
+            set('email', 'demo@example.com');
+            set('password', 'demo123');
+          }}>
+            <code>demo@example.com</code> / <code>demo123</code> <span style={{ fontSize: '12px' }}></span>
+          </div>
         )}
       </div>
     </div>
