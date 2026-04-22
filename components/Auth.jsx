@@ -9,6 +9,17 @@ function AuthPage({ onLogin, initialMode = 'login' }) {
 
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setErrors(e => ({ ...e, [k]: '' })); setServerError(''); };
 
+  const resetForm = () => {
+    setForm({ name: '', phone: '', email: '', password: '', confirm: '' });
+    setErrors({});
+    setServerError('');
+  };
+
+  const switchMode = (newMode) => {
+    setMode(newMode);
+    resetForm();
+  };
+
   function validateLogin() {
     const e = {};
     if (!form.email.trim()) e.email = 'Введите e-mail';
@@ -16,6 +27,7 @@ function AuthPage({ onLogin, initialMode = 'login' }) {
     if (!form.password) e.password = 'Введите пароль';
     return e;
   }
+
   function validateRegister() {
     const e = {};
     if (!form.name.trim()) e.name = 'Введите ФИО';
@@ -59,8 +71,8 @@ function AuthPage({ onLogin, initialMode = 'login' }) {
         <p className="auth-sub">{mode === 'login' ? 'Войдите в аккаунт' : 'Создайте аккаунт'}</p>
 
         <div className="auth-tabs">
-          <button className={`auth-tab${mode==='login'?' active':''}`} onClick={() => { setMode('login'); setErrors({}); setServerError(''); }}>Вход</button>
-          <button className={`auth-tab${mode==='register'?' active':''}`} onClick={() => { setMode('register'); setErrors({}); setServerError(''); }}>Регистрация</button>
+          <button className={`auth-tab${mode === 'login' ? ' active' : ''}`} onClick={() => switchMode('login')}>Вход</button>
+          <button className={`auth-tab${mode === 'register' ? ' active' : ''}`} onClick={() => switchMode('register')}>Регистрация</button>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
