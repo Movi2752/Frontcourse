@@ -96,7 +96,16 @@ function RestaurantPage({ restaurantId, currentUser, onBack, onGoProfile, editBo
         <div className="rest-header">
           <div className="rest-header-image" style={!restaurant.image ? { background: `linear-gradient(135deg, ${restaurant.color}18, ${restaurant.color}35)` } : {}}>
             {restaurant.image ? (
-              <img src={restaurant.image} alt={restaurant.name} style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '20px'}} />
+              <picture style={{ display: 'contents' }}>
+                <source srcSet={restaurant.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                <img 
+                  src={restaurant.image} 
+                  alt={restaurant.name} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '20px' }} 
+                  loading="lazy"
+                  onError={(e) => e.target.style.display = 'none'}
+                />
+              </picture>
             ) : (
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke={restaurant.color} strokeWidth="1.2" opacity="0.4">
                 <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>

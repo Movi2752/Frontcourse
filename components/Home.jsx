@@ -74,7 +74,16 @@ function RestaurantCard({ restaurant: r, onClick }) {
     <div className="restaurant-card" onClick={onClick} role="button" tabIndex={0} onKeyDown={e => e.key==='Enter'&&onClick()}>
       <div className="card-image" style={{ background: `linear-gradient(135deg, ${r.color}22 0%, ${r.color}44 100%)` }}>
         {r.image ? (
-          <img src={r.image} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <picture style={{ display: 'contents' }}>
+            <source srcSet={r.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+            <img 
+              src={r.image} 
+              alt={r.name} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              loading="lazy"
+              onError={(e) => e.target.style.display = 'none'}
+            />
+          </picture>
         ) : (
           <div className="card-image-placeholder">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={r.color} strokeWidth="1.5" opacity="0.6">
