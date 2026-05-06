@@ -52,7 +52,7 @@ function HomePage({ onSelectRestaurant }) {
           ))}
         </div>
 
-        <p className="results-count">{filtered.length} {noun(filtered.length, ['ресторан', 'ресторана', 'ресторанов'])}</p>
+        <p className="results-count">{noun(filtered.length, ['ресторан', 'ресторана', 'ресторанов'])}</p>
 
         <div className="restaurants-grid">
           {filtered.length === 0 && (
